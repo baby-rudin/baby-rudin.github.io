@@ -27,7 +27,7 @@ layout: default
       <ul>
         {% if paginator.previous_page %}
             {% if paginator.previous_page == 1 %}
-                <p><a class="newer-posts" href="{{ site.baseurl }}">{% include svg/left-arrow.svg %}</a></p>
+                <p><a class="newer-posts" href="{{ site.github.url }}">{% include svg/left-arrow.svg %}</a></p>
             {% else %}
                 <p><a class="newer-posts" href="{{ site.baseurl }}page/{{ paginator.previous_page }}/">{% include svg/left-arrow.svg %}</a></p>
             {% endif %}
