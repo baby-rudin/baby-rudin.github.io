@@ -1,0 +1,27 @@
+---
+layout:     default
+title:      Tags
+permalink:  'tags/'
+---
+
+<h2>Tags</h2>
+
+<ul class="tags">
+    {% for tag in site.tags %}
+    <li>
+        <a href="#{{ tag | first }}">{{ tag | first }}</a> <sup>{{ tag | last | size }}</sup>
+    </li>
+    {% endfor %}
+</ul>
+
+<ul class="listing">
+    {% for tag in site.tags %}
+        <h2 class="listing-seperator" id="{{ tag | first }}">{{ tag | first }}</h2>
+        {% for post in tag.last %}
+        <li class="listing-item">
+            <time datetime="{{ post.date | date:'%Y-%m-%d' }}">{{ post.date | date:"%Y-%m-%d" }}</time>
+            <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+        </li>
+    {% endfor %}
+{% endfor %}
+</ul>

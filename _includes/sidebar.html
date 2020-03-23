@@ -1,36 +1,87 @@
 <div class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <h1>
-        <a href="{{ site.baseurl }}">
-          {{ site.title }}
-        </a>
-      </h1>
-      <p class="lead">{{ site.description }}</p>
+
+    <div class="sidebar-title">
+        <h1><a href="{{ site.baseurl }}">{{ site.title }}</a></h1>
     </div>
 
-    <nav class="sidebar-nav">
-      <a class="sidebar-nav-item{% if page.url == site.baseurl %} active{% endif %}" href="{{ site.baseurl }}">Home</a>
+    <div class="sidebar-about">
+        <p class="lead">{{ site.description }}</p>
+    </div>
 
-      {% comment %}
-        The code below dynamically generates a sidebar nav of pages with
-        `layout: page` in the front-matter. See readme for usage.
-      {% endcomment %}
+    <nav class="sidebar-links">
+        {% comment %}
+            variable {{ page.url }} change with permalink setting in each page
+            for example: code " permalink: 'about/' " has been written in file "pages/about"
+                         then {{ page.url }} for about page will become {{ baseurl | append:'about/' }}
+        {% endcomment %}
 
-      {% assign pages_list = site.pages %}
-      {% for node in pages_list %}
-        {% if node.title != null %}
-          {% if node.layout == "page" %}
-            <a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url }}">{{ node.title }}</a>
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-
-      <a class="sidebar-nav-item" href="{{ site.github.repo }}/archive/v{{ site.version }}.zip">Download</a>
-      <a class="sidebar-nav-item" href="{{ site.github.repo }}">GitHub project</a>
-      <span class="sidebar-nav-item">Currently v{{ site.version }}</span>
+        {% assign HomeUrl       = site.baseurl %}
+        {% assign ArchivesUrl   = site.baseurl | append:'archives/' %}
+        {% assign CategoriesUrl = site.baseurl | append:'categories/' %}
+        {% assign TagsUrl       = site.baseurl | append:'tags/' %}
+        {% assign AboutUrl      = site.baseurl | append:'about/' %}
+        <a class="sidebar-links-item {% if page.url == HomeUrl %}active{% endif %}"         href="{{ site.baseurl }}">Home</a>
+        <a class="sidebar-links-item {% if page.url == ArchivesUrl %}active{% endif %}"     href="{{ site.baseurl }}archives/">Archives</a>
+        <a class="sidebar-links-item {% if page.url == CategoriesUrl %}active{% endif %}"   href="{{ site.baseurl }}categories/">Categories</a>
+        <a class="sidebar-links-item {% if page.url == TagsUrl %}active{% endif %}"         href="{{ site.baseurl }}tags/">Tags</a>
+        <a class="sidebar-links-item {% if page.url == AboutUrl %}active{% endif %}"        href="{{ site.baseurl }}about/">About</a>
     </nav>
 
-    <p>&copy; {{ site.time | date: '%Y' }}. All rights reserved.</p>
-  </div>
+    <nav class="sidebar-icons">
+
+        <a id="github-link"
+            class="icon" title="Github" aria-label="Github"
+            href="{{ site.baseurl }}">
+            {% include svg/github.svg %}
+        </a>
+
+        <a id="github-download-link"
+            class="icon" title="Download" aria-label="Download"
+            href="{{ site.baseurl }}">
+            {% include svg/download.svg %}
+        </a>
+
+        <a id="subscribe-link"
+            class="icon" title="Subscribe" aria-label="Subscribe"
+            href="{{ site.baseurl }}">
+            {% include svg/feed.svg %}
+        </a>
+
+        {% comment %}
+            Check if we have tag or search pages page active before linking to it.
+        {% endcomment %}
+        {% assign tags_page = false %}
+        {% assign search_page = false %}
+        {% for node in site.pages %}
+            {% if node.layout == "tags" %}
+                {% assign tags_page = node %}
+            {% elsif node.layout == "search" %}
+                {% assign search_page = node %}
+            {% endif %}
+        {% endfor %}
+
+        <a id="tags-link"
+            class="icon {% if page.url == '/tags' %} active{% endif %}"
+            title="Tags" aria-label="Tags"
+            href="{{ site.baseurl }}">
+            {% include svg/tags.svg %}
+        </a>
+
+        <a id="search-link"
+            class="icon {% if page.url == '/search' %} active{% endif %}"
+            title="Search" aria-label="Search"
+            href="{{ site.baseurl }}search/">
+            {% include svg/search.svg %}
+        </a>
+
+        <a id="search-link"
+            class="icon {% if page.url == '/search' %} active{% endif %}"
+            title="Search" aria-label="Search"
+            href="{{ site.baseurl }}search/">
+            {% include svg/email.svg %}
+        </a>
+
+    </nav>
+
 </div>
+
