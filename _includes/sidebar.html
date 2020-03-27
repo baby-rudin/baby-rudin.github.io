@@ -20,6 +20,9 @@
         {% assign CategoriesUrl = site.github.url | append:'/categories/' %}
         {% assign TagsUrl       = site.github.url | append:'/tags/' %}
         {% assign AboutUrl      = site.github.url | append:'/about/' %}
+        {{ page.url }}
+        <br/>
+        {{ HomeUrl }}
         <a class="sidebar-links-item {% if page.url == HomeUrl %}active{% endif %}"         href="{{ site.github.url }}">Home</a>
         <a class="sidebar-links-item {% if page.url == ArchivesUrl %}active{% endif %}"     href="{{ site.github.url }}/archives/">Archives</a>
         <a class="sidebar-links-item {% if page.url == CategoriesUrl %}active{% endif %}"   href="{{ site.github.url }}/categories/">Categories</a>
