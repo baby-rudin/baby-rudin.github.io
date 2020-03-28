@@ -1,30 +1,21 @@
 ---
 layout:     default
 title:      Search
-permalink:  'search/'
+permalink:  '/search/'
 ---
 
-<link rel="stylesheet" href="{{ site.github.url }}/css/search.css">
+<h1 class="search-page-title">Google Search</h1>
 
-<header>
-    <h1 class="page-title"><label for="search-bar">{{ page.title }}</label></h1>
-</header>
+<form action="https://google.com/search" class="search-form">
+    <div class="search-row">
+        <input id="search-bar" type="search" name="q" />
+        {% assign url = site.url | replace_first: 'https://', '' %}
+        {% assign url = url | replace_first: 'http://', '' %}
+        {% assign url = url | replace_first: 'spdy://', '' %}
+        {% assign url = url | replace_first: '//', '' %}
+        <input name="sitesearch" type="hidden"
+               value=" {{ url }}{{ '/' | relative_url }}" />
+        <input id="search-btn" type="submit" value="Search" />
+    </div>
+</form>
 
-<div class="content">
-    <form action="https://google.com/search" class="search-form">
-        <div class="search-row">
-            <input id="search-bar" type="search" name="q" />
-
-                {% comment %}
-                    Hacky strip of protocol to the sitesearch value we pass to Google
-                {% endcomment %}
-                {% assign url = site.url | replace_first: 'https://', '' %}
-                {% assign url = url | replace_first: 'http://', '' %}
-                {% assign url = url | replace_first: 'spdy://', '' %}
-                {% assign url = url | replace_first: '//', '' %}
-                <input name="sitesearch" type="hidden"
-                    value="{{ url }}{{ "/" | relative_url }}" />
-                <input type="submit" value="Search" />
-        </div>
-    </form>
-</div>

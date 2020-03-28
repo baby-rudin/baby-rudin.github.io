@@ -1,23 +1,77 @@
 ---
 layout:     default
 title:      Archives
-permalink:  'archives/'
+permalink:  '/archives/'
 ---
 
-<h2>Archives</h2>
-<ul>
-  {% for post in site.posts %}
+<h1 class="main-pages-title">{{ page.title }}</h1>
 
-    {% unless post.next %}
-      <h3>{{ post.date | date: '%Y' }}</h3>
-    {% else %}
-      {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-      {% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-      {% if year != nyear %}
-        <h3>{{ post.date | date: '%Y' }}</h3>
-      {% endif %}
-    {% endunless %}
+<ul class="main-pages-link" >
+    {% assign years = '' %}
+    {% for post in site.posts %}
+        {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
+        {% assign years = years | append: year %}
+        {% assign years = years | append: ',' %}
+    {% endfor %}
+    {% assign year_list = years | split:',' %}
 
-    <li>{{ post.date | date:"%b" }} <a href="{{ post.url }}">{{ post.title }}</a></li>
-  {% endfor %}
+    {% assign year_1 = year_list.size | minus:1 %}
+    {% assign idx_list = (0..year_1) %}
+
+    {% assign num_year = 0 %}
+    {% for idx in idx_list %}
+        {% assign num_year = num_year | plus:1 %}
+        {% if forloop.index == forloop.length %}
+            <li>
+                <a class="main-pages-link-item" href="#{{year_list[idx]}}">{{year_list[idx]}}</a> <sup>{{num_year}}</sup>
+            </li>
+        {% else %}
+            {% assign next_idx = idx | plus:1 %}
+            {% if year_list[next_idx] != year_list[idx] %}
+                <li>
+                    <a class="main-pages-link-item" href="#{{year_list[idx]}}">{{year_list[idx]}}</a> <sup>{{num_year}}</sup>
+                </li>
+                {% assign num_year = 0 %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<hr class="page-dividing-line"/>
+
+<ul class="main-pages-list">
+    {% assign num_year = 0 %}
+    {% assign post_point = 0 %}
+    {% for idx in idx_list %}
+        {% assign num_year = num_year | plus:1 %}
+        {% if forloop.index == forloop.length %}
+            <li id="{{year_list[idx]}}"><h2>{{year_list[idx]}}</h2></li>
+            <ul class="main-pages-sub-list">
+                {% assign last_point = post_point | plus:num_year | minus:1 %}
+                {% for i in (post_point..last_point) %}
+                    <li>
+                        <span class="main-pages-list-time">{{ site.posts[i].date | date:"%Y-%m-%d" }}</span>
+                        <a class="main-pages-list-post-title" href="{{ site.github.url }}/{{ site.posts[i].url }}">{{ site.posts[i].title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% assign post_point = post_point | plus: num_year %}
+        {% else %}
+            {% assign next_idx = idx | plus:1 %}
+            {% if year_list[next_idx] != year_list[idx] %}
+                <li id="{{year_list[idx]}}"><h2>{{year_list[idx]}}</h2></li>
+                <ul class="main-pages-sub-list">
+                    {% assign last_point = post_point | plus:num_year | minus:1 %}
+                    {% for i in (post_point..last_point) %}
+                        <li>
+                            <span class="main-pages-list-time">{{ site.posts[i].date | date:"%Y-%m-%d" }}</span>
+                            <a class="main-pages-list-post-title" href="{{ site.github.url }}/{{ site.posts[i].url }}">{{ site.posts[i].title }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% assign post_point = post_point | plus: num_year %}
+                {% assign num_year = 0 %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
 </ul>

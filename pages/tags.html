@@ -1,25 +1,32 @@
 ---
 layout:     default
 title:      Tags
-permalink:  'tags/'
+permalink:  '/tags/'
 ---
 
-<ul class="tags">
+<h1 class="main-pages-title">{{ page.title }}</h1>
+
+<ul class="main-pages-link">
     {% for tag in site.tags %}
     <li>
-        <a href="#{{ tag | first }}">{{ tag | first }}</a> <sup>{{ tag | last | size }}</sup>
+        <a class="main-pages-link-item" href="#{{ tag | first }}">{{ tag | first }}</a>
+        <sup>{{ tag | last | size }}</sup>
     </li>
     {% endfor %}
 </ul>
 
-<ul class="listing">
+<hr class="page-dividing-line"/>
+
+<ul class="main-pages-list">
     {% for tag in site.tags %}
-        <li class="listing-seperator" id="{{ tag | first }}">{{ tag | first }}</li>
-        {% for post in tag.last %}
-        <li class="listing-item">
-            <time datetime="{{ post.date | date:'%Y-%m-%d' }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-            <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-        </li>
+    <li id="{{ tag | first }}"><h2>{{ tag | first }}</h2></li>
+        <ul class="main-pages-sub-list">
+            {% for post in tag.last %}
+                <li class="listing-item">
+                    <span class="main-pages-list-time">{{ post.date | date:"%Y-%m-%d" }}</span>
+                    <a class="main-pages-list-post-title" href="{{ site.github.url }}/{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
     {% endfor %}
-{% endfor %}
 </ul>

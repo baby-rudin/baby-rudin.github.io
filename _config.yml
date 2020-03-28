@@ -1,19 +1,25 @@
-
 title:  Rudin's Home
+author: Rudin
+email:  your-email@domain.com
 description: >-
-    Write an awesome description for your new site here. You can edit this
-    line in _config.yml. It will appear in your document head meta (for
-    Google search results) and in your feed.xml site description.
-baseurl:        ""
-url:            ""
+    A personal blog for taking notes and sharing knowledge
+baseurl:    "/rudin"
+url:        ""
 
+social_link:
+    github: "github.com/example-user"
 
-# Build Settings
-markdown: kramdown
+permalink: "/post/:title/"
+
+# Build Setting
 plugins:
-  - jekyll-sitemap
-  - jekyll-paginate
-  - jemoji
+    - jekyll-paginate
 
-paginate: 8
+
+# paginate setting
+paginate: 5
 paginate_path: "/page/:num"
+
+# deployment setting
+host: 0.0.0.0
+port: 4000

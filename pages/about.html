@@ -1,10 +1,25 @@
 ---
 layout:     default
 title:      About
-permalink:  'about/'
+permalink:  '/about/'
 ---
 
-<h1>About</h1>
-<p>test</p>
+<h1 class="main-pages-title">{{ page.title }}</h1>
 
-<p>test1</p>
+<h2 class="about-subtitle">关于我</h2>
+<p class="about-info">
+    主修化学，并没有认真学。兴趣爱好广泛，比如交友。喜欢编程，非常业余。目前的理想是将来有能力写点与化学相关的小程序，获得些许成就感。
+</p>
+
+<h2 class="about-subtitle">关于博客</h2>
+<p class="about-info">
+    制作这个博客的目的是整理笔记和分享知识。目前没有添加评论功能的计划，以免当众挨喷。如果有写错或者没讲人话的地方，诚恳地希望您能联系我予以告知，我一定会在第一时间改正，以免误导他人。
+</p>
+
+<h2 class="about-subtitle">联系方式</h2>
+<p class="about-info">
+    <ul>
+        <li>E-mail Address: {{ site.email }}</li>
+        <li>WeChat: <img id="about-info-contact-qrcode" src="{{ site.github.url }}/assets/img/wechat-qrcode.jpg"></li>
+    </ul>
+</p>

@@ -1,34 +1,98 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!DocType html>
+<html>
 
 <head>
-    <link href="http://gmpg.org/xfn/11" rel="profile">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
-    <!-- Enable responsiveness on mobile devices-->
+    <!-- Enable responsiveness on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
+    <!-- favicon -->
+    <link rel="shortcut icon"                       href="{{ site.github.url }}/assets/img/favicon/favicon.svg" type="image/x-icon">
+    <link rel="apple-touch-icon"                    href="{{ site.github.url }}/assets/img/favicon/apple-touch-icon.svg">
+    <link rel="apple-touch-icon" sizes="72x72"      href="{{ site.github.url }}/assets/img/favicon/apple-touch-icon-72x72.svg">
+    <link rel="apple-touch-icon" sizes="144x144"    href="{{ site.github.url }}/assets/img/favicon/apple-touch-icon-144x144.svg">
+
     <title>
-        {{ page.title }}
+        {% if page.title == "Home" %}
+            {{ site.title }}
+        {% else %}
+            {{ page.title }} &middot; {{ site.title }}
+        {% endif %}
     </title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="{{ site.github.url }}/css/main.css">
-    <link rel="stylesheet" href="{{ site.github.url }}/css/sidebar.css">
-    <link rel="stylesheet" href="{{ site.github.url }}/css/content.css">
-    <link rel="stylesheet" href="{{ site.github.url }}/css/home-content.css">
-    <link rel="stylesheet" href="{{ site.github.url }}/css/google-font-Abril_Fatface.css">
+    <link rel="stylesheet" href="{{ site.github.url }}/assets/css/main.css">
 
-    <!-- Icons -->
-    <link rel="shortcut icon" href="{{ site.github.url }}/image/check_filled.ico">
-
+    <!-- JS Show QrCode-->
+    <script>
+        function clickWeChatIcon() {
+            var QrCodeDiv = document.getElementById('qrcode-div');
+            QrCodeDiv.hidden = false;
+        }
+        function clickQrCode() {
+            var QrCodeDiv = document.getElementById('qrcode-div');
+            QrCodeDiv.hidden = true;
+        }
+    </script>
 </head>
 
 <body>
-    {% include sidebar.html %}
+    <div id="sidebar">
+    <div id="sidebar-layout">
+        <h1 id="sidebar-title">
+            <a href="{{ site.github.url }}/">{{ site.title }}<a>
+        </h1>
 
-    <div class="content">
+        <p id="sidebar-info">{{ site.description }}</p>
+
+        <nav id="sidebar-links">
+            <a class="sidebar-links-item {% if page.url ==            '/' %}active{% endif %}" href="{{ site.github.url }}/">Home</a>
+            <a class="sidebar-links-item {% if page.url ==   '/archives/' %}active{% endif %}" href="{{ site.github.url }}/archives/">Archives</a>
+            <a class="sidebar-links-item {% if page.url == '/categories/' %}active{% endif %}" href="{{ site.github.url }}/categories/">Categories</a>
+            <a class="sidebar-links-item {% if page.url ==       '/tags/' %}active{% endif %}" href="{{ site.github.url }}/tags/">Tags</a>
+            <a class="sidebar-links-item {% if page.url ==      '/about/' %}active{% endif %}" href="{{ site.github.url }}/about/">About</a>
+        </nav>
+
+        <nav id="sidebar-icons">
+
+            <a id="email-link" class="sidebar-icon-item" href="mailto:{{ site.email }}">
+                {% include svg/email.svg %}
+            </a>
+
+            <a id="wechat-link" class="sidebar-icon-item" href="javascript:void(0);" onclick="clickWeChatIcon()">
+                {% include svg/wechat.svg %}
+            </a>
+            <div id="qrcode-div" hidden onclick="clickQrCode();">
+                <img id="qrcode-img" src="{{ site.github.url }}/assets/img/wechat-qrcode.jpg">
+            </div>
+
+            <a id="github-link" class="sidebar-icon-item" href="{{ site.social_link.github }}">
+                {% include svg/github.svg %}
+            </a>
+
+            <a id="categories-link" class="sidebar-icon-item" href="{{ site.github.url }}/categories/">
+                {% include svg/categories.svg %}
+            </a>
+
+            <a id="tags-link" class="sidebar-icon-item" href="{{ site.github.url }}/tags/">
+                {% include svg/tags.svg %}
+            </a>
+
+            <a id="search-link"
+                class="icon {% if page.url == '/search' %} active{% endif %}"
+                title="Search" aria-label="Search"
+                href="{{ site.github.url }}/search/">
+                {% include svg/search.svg %}
+            </a>
+
+        </nav>
+    </div>
+    </div>
+
+    <div id="main-content">
         {{ content }}
     </div>
 </body>

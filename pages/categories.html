@@ -1,28 +1,32 @@
 ---
 layout:     default
 title:      Categories
-permalink:  'categories/'
+permalink:  '/categories/'
 ---
 
-<h2>Categories</h2>
+<h1 class="main-pages-title">{{ page.title }}</h1>
 
-
-
-
-<ul class="categories">
+<ul class="main-pages-link">
     {% for category in site.categories %}
     <li>
-        <a href="#{{ category | first }}">{{ category | first }}</a> <sup>{{ category | last | size }}</sup>
+        <a class="main-pages-link-item" href="#{{ category | first }}">{{ category | first }}</a>
+        <sup>{{ category | last | size }}</sup>
     </li>
     {% endfor %}
 </ul>
 
+<hr class="page-dividing-line" />
 
-{% for category in site.categories %}
-    <h2 id="{{ category | first }}">{{ category | first }}</h2>
-    <ul class="arc-list">
-        {% for post in category.last %}
-            <li>{{ post.date | date:"%d/%m/%Y"}}<a href="{{ post.url }}">{{ post.title }}</a></li>
-        {% endfor %}
-    </ul>
-{% endfor %}
+<ul class="main-pages-list">
+    {% for category in site.categories %}
+        <li id="{{ category | first }}"><h2>{{ category | first }}</h2></li>
+        <ul class="main-pages-sub-list">
+            {% for post in category.last %}
+                <li>
+                    <span class="main-pages-list-time">{{ post.date | date:"%Y-%m-%d" }}</span>
+                    <a class="main-pages-list-post-title" href="{{ site.github.url }}/{{ post.url }}">{{ post.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</ul>
