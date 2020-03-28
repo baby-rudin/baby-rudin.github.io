@@ -14,7 +14,7 @@ permalink:  '/search/'
         {% assign url = url | replace_first: 'spdy://', '' %}
         {% assign url = url | replace_first: '//', '' %}
         <input name="sitesearch" type="hidden"
-               value=" {{ url }}{{ '/' | relative_url }}" />
+               value="{{ url }}" />
         <input id="search-btn" type="submit" value="Search" />
     </div>
 </form>
