@@ -9,7 +9,7 @@ permalink:  '/search/'
 <form action="https://google.com/search" class="search-form">
     <div class="search-row">
         <input id="search-bar" type="search" name="q" />
-        {% assign url = site.url | replace_first: 'https://', '' %}
+        {% assign url = site.github.url | replace_first: 'https://', '' %}
         {% assign url = url | replace_first: 'http://', '' %}
         {% assign url = url | replace_first: 'spdy://', '' %}
         {% assign url = url | replace_first: '//', '' %}
